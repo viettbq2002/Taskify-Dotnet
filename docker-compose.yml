@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  taskify.webapi:
+    image: ${DOCKER_REGISTRY-}taskifywebapi
+    build:
+      context: .
+      dockerfile: Taskify.WebAPI/Dockerfile
