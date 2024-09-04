@@ -13,9 +13,9 @@ namespace Taskify.Application.MappingProfile
     {
         public ItemCategoryProfile() {
 
-            CreateMap<CreateItemCategory, ItemCateogry>();
-            CreateMap<UpdateItemCategory, ItemCateogry>();
-            CreateMap<>();
+            CreateMap<CreateItemCategory, ItemCateogry>().ReverseMap();
+            CreateMap<UpdateItemCategory, ItemCateogry>().ReverseMap();
+            CreateMap<ItemCategoryResponse, ItemCateogry>().ReverseMap();
         }
     }
 }

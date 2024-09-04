@@ -27,7 +27,7 @@ namespace Taskify.Application.Services
         {
             var category = _mapper.Map<ItemCateogry>(request);
             var createdCategory = await _unitOfWork.Category.AddAsync(category);
-            var mappedResponse = _mapper.Map<ItemCategoryResponse>(createdCategory);    
+            var mappedResponse = _mapper.Map<ItemCategoryResponse>(createdCategory);
             var response = ApiResponse<ItemCategoryResponse>.Created("Category created success", mappedResponse);
             return response;
 
@@ -49,3 +49,4 @@ namespace Taskify.Application.Services
             throw new NotImplementedException();
         }
     }
+}
