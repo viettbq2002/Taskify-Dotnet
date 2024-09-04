@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taskify.Application.Common;
 using Taskify.Application.DTOs.ItemCategory;
 using Taskify.Application.Interfaces;
 using Taskify.Domain.Entities;
@@ -22,9 +23,15 @@ namespace Taskify.Application.Services
             _mapper = mapper;
         }
 
-        public Task<ItemCategoryResponse> CreateAsync(CreateItemCategory request)
+        public async Task<ApiResponse<ItemCategoryResponse>> CreateAsync(CreateItemCategory request)
         {
-            throw new NotImplementedException();
+            var category = _mapper.Map<ItemCateogry>(request);
+            var createdCategory = await _unitOfWork.Category.AddAsync(category);
+            var mappedResponse = _mapper.Map<ItemCategoryResponse>(createdCategory);    
+            var response = ApiResponse<ItemCategoryResponse>.Created("Category created success", mappedResponse);
+            return response;
+
+
         }
 
         public Task DeleteAsync(int key)
@@ -37,9 +44,8 @@ namespace Taskify.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ItemCategoryResponse> UpdateAsync(UpdateItemCategory request)
+        public Task<ApiResponse<ItemCategoryResponse>> UpdateAsync(UpdateItemCategory request)
         {
             throw new NotImplementedException();
         }
     }
-}
