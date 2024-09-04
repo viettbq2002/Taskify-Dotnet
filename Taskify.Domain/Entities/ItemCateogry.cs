@@ -10,7 +10,7 @@ namespace Taskify.Domain.Entities
     public class ItemCateogry : BaseEntity
     {
         public string CategoryName { get; set; } = null!;
-        public bool isArchived { get; set; } = false;
+        public bool IsArchived { get; set; } = false;
         public ICollection<Item> Items { get; set; } = [];
     }
 }

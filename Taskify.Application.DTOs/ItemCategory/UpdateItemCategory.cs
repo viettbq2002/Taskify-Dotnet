@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taskify.Application.Services
+namespace Taskify.Application.DTOs.ItemCategory
 {
-    public class ItemService
+    public class UpdateItemCategory: CreateItemCategory
     {
+
     }
 }

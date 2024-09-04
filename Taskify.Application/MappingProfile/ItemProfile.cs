@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taskify.Application.Services
+namespace Taskify.Application.MappingProfile
 {
-    public class ItemService
+    internal class ItemProfile
     {
     }
 }

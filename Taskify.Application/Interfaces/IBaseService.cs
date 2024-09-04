@@ -10,7 +10,8 @@ namespace Taskify.Application.Interfaces
     {
         Task<TResponseDto> CreateAsync(TCreateDto request);
         Task<TResponseDto> UpdateAsync(TUpdateDto request);
-        Task<TResponseDto> DeleteAsync(TKey key);
+        Task DeleteAsync(TKey key);
+        Task<IEnumerable<TResponseDto>> GetListAsync();
 
 
 
