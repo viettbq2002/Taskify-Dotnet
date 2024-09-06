@@ -18,8 +18,9 @@ namespace Taskify.Persistence
         public static IServiceCollection AddPersistenceService(this IServiceCollection services , IConfiguration configuration) {
 
             services.AddDbContext<TaskifyDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<ICategoryRepository, CategoryRepsitory>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICategoryRepository, CategoryRepsitory>();
+            services.AddScoped<IItemRepository, ItemRepository>();
             return services;
         }
     }

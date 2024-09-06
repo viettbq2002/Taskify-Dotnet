@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Taskify.Application.DTOs.Item;
+using Taskify.Application.DTOs.SubItem;
 using Taskify.Domain.Entities;
 
 namespace Taskify.Application.MappingProfile
 {
-    public class ItemProfile : Profile
+    public class SubItemProfile : Profile
     {
-        public ItemProfile() {
-            CreateMap<CreateItem, Item>();
-            CreateMap<Item,ItemResponse>();
-            CreateMap<UpdateItem, Item>();
-            
+        public SubItemProfile()
+        {
+            CreateMap<Item, ItemResponse>().ReverseMap();
+            CreateMap<SubItem,SubItemResponse>().ReverseMap();
         }
     }
 }

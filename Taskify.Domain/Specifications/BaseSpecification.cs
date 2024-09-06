@@ -8,14 +8,20 @@ using Taskify.Domain.SeedWorks;
 
 namespace Taskify.Domain.Specifications
 {
-    public class BaseSpecification<T>(Expression<Func<T, bool>> predicate) : ISpecification<T> where T : class
+    public abstract class BaseSpecification<T>(Expression<Func<T, bool>> predicate) : ISpecification<T> where T : class
     {
         public Expression<Func<T, bool>> Predicate { get; } = predicate;
+        public List<string> IncludeStrings { get; } = [];
 
         public List<Expression<Func<T, object>>> Includes { get; } = [];
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
         {
             Includes.Add(includeExpression);
         }
+        protected void AddNestedInclude(string includeString)
+        {
+            IncludeStrings.Add(includeString);
+        }
+
     }
 }

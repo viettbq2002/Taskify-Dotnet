@@ -13,16 +13,16 @@ namespace Taskify.Persistence.Repositories
     {
         #region Attribute
         private readonly TaskifyDbContext _context;
-        public ICategoryRepository Category { get; }
-        public IItemRepository Item { get; }
+        public ICategoryRepository Categories  { get; }
+        public IItemRepository Items { get; }
 
         #endregion
         #region Constructor
-        public UnitOfWork(TaskifyDbContext context, ICategoryRepository category, IItemRepository item)
+        public UnitOfWork(TaskifyDbContext context, ICategoryRepository categoryRepository, IItemRepository items)
         {
             _context = context;
-            Category = category;
-            Item = item;
+            Categories = categoryRepository;
+            Items = items;
         }
         #endregion
         public void Dispose()
@@ -38,9 +38,9 @@ namespace Taskify.Persistence.Repositories
                 _context.Dispose();
             }
         }
-        public Task<int> SaveAsync(CancellationToken cancellationToken = default)
+        public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Taskify.Domain.SeedWorks
 {
     public interface IUnitOfWork: IDisposable
     {
-        ICategoryRepository Category { get; }
-        IItemRepository Item{ get; }
+        ICategoryRepository Categories { get; }
+        IItemRepository Items { get; }
         Task<int> SaveAsync(CancellationToken cancellationToken = default);
     }
 }

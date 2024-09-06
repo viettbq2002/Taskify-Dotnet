@@ -22,6 +22,18 @@ namespace Taskify.WebAPI.Controllers
             var response = await _categoryService.CreateAsync(request);
             return Created(string.Empty,response);
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategory()
+        {
+            var reponse = await _categoryService.GetListAsync();
+            return Ok(reponse);
+        }
+        [HttpGet("{categoryId:int}")]
+        public async Task<IActionResult> GetCategoryById(int categoryId)
+        {
+            var response = await _categoryService.GetAsync(categoryId);
+            return Ok(response);
 
         }
      

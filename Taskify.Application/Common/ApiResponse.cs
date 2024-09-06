@@ -29,6 +29,11 @@ namespace Taskify.Application.Common
             return new ApiResponse<T>(StatusCodes.Status201Created, message, data);
 
         }
+        public static ApiResponse<IEnumerable<T>> GetListSuccess(string message, IEnumerable<T> data) { 
+        
+            return new ApiResponse<IEnumerable<T>>(StatusCodes.Status200OK, message, data);
+        }
+
 
     }
 }

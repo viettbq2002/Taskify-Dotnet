@@ -11,6 +11,7 @@ namespace Taskify.Domain.SeedWorks
     {
         Expression<Func<T, bool>> Predicate { get; }
         List<Expression<Func<T, object>>> Includes { get; }
+        public List<string> IncludeStrings { get; } 
     }
 }
  

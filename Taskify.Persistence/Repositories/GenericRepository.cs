@@ -19,46 +19,51 @@ namespace Taskify.Persistence.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
             return entity;
         }
 
-        public async Task<T[]> AddRangeAsync(T[] entities)
+        public virtual async Task<T[]> AddRangeAsync(T[] entities)
         {
             await _dbSet.AddRangeAsync(entities);
             return entities;
 
         }
 
-        public Task<IEnumerable<T>> Count(ISpecification<T> specification)
+        public virtual Task<IEnumerable<T>> Count(ISpecification<T> specification)
         {
             throw new NotImplementedException();
         }
 
-        public  Task DeleteAsync(T entity)
+        public virtual Task DeleteAsync(T entity)
         {
              _dbSet.Remove(entity);
             return Task.CompletedTask;
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
         private IQueryable<T> ApplyIncludes(IQueryable<T> query, ISpecification<T> specification)
         {
-            return specification.Includes
-                                .Aggregate(query, (current, include) => current.Include(include));
+            query = specification.Includes
+                                  .Aggregate(query, (current, include) => current.Include(include));
+
+            query = specification.IncludeStrings
+                                  .Aggregate(query, (current, include) => current.Include(include));
+
+            return query;
         }
 
-        public async Task<IEnumerable<T>> SelectManyAsync(ISpecification<T> specification)
+        public virtual async Task<IEnumerable<T>> SelectManyAsync(ISpecification<T> specification)
         {
             var query = _context.Set<T>().AsQueryable();
             var includes = ApplyIncludes(query, specification);
@@ -68,7 +73,7 @@ namespace Taskify.Persistence.Repositories
                         .ToListAsync(); 
         }
 
-        public async Task<IEnumerable<T>> SelectManyPaginatedAsync(ISpecification<T> specification, int pageSize = 10, int currentPage=1)
+        public virtual async Task<IEnumerable<T>> SelectManyPaginatedAsync(ISpecification<T> specification, int pageSize = 10, int currentPage=1)
         {
             int skip = (currentPage -1) * pageSize;
             var query = _context.Set<T>().AsQueryable();
@@ -80,14 +85,14 @@ namespace Taskify.Persistence.Repositories
                          .ToListAsync();
         }
 
-        public Task<T?> SelectOneAsync(ISpecification<T> specification)
+        public virtual Task<T?> SelectOneAsync(ISpecification<T> specification)
         {
             var query = _context.Set<T>().AsQueryable();
             var includes = ApplyIncludes(query, specification);
             return includes.FirstOrDefaultAsync(specification.Predicate);
         }
 
-        public  Task<T> UpdateAsync(T entity)
+        public virtual Task<T> UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             return Task.FromResult(entity);

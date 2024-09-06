@@ -10,9 +10,9 @@ using Taskify.Persistence.Context;
 
 namespace Taskify.Persistence.Repositories
 {
-    public class CategoryRepsitory : GenericRepository<ItemCateogry>, ICategoryRepository
+    public class ItemRepository : GenericRepository<Item>, IItemRepository
     {
-        public CategoryRepsitory(TaskifyDbContext context) : base(context)
+        public ItemRepository(TaskifyDbContext context) : base(context)
         {
         }
     }
