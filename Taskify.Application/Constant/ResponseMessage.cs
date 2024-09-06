@@ -12,6 +12,7 @@ namespace Taskify.Application.Constant
         public const string Success = "Success";
         public const string Created = "Create success";
         public const string NotFound = "Not found";
+        public const string CreateFailure = "Create failed!";
 
 
     }

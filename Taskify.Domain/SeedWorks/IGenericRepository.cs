@@ -17,6 +17,7 @@ namespace Taskify.Domain.SeedWorks
         #endregion
         #region Query
         Task<T?> GetByIdAsync(int id);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T?> SelectOneAsync(ISpecification<T> specification);
         Task<IEnumerable<T>> SelectManyAsync(ISpecification<T> specification);
