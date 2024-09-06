@@ -31,7 +31,7 @@ namespace Taskify.Application.Services
         {
             if(request.CategoryId != null)
             {
-                var validateResult = _createItemValidator.Validate(request);
+                var validateResult =  await _createItemValidator.ValidateAsync(request);
                 if (!validateResult.IsValid)
                 {
                     throw new BadRequestException(ResponseMessage.CreateFailure, validateResult);
@@ -50,7 +50,15 @@ namespace Taskify.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync()
+        public async Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync(bool isArchived)
+        {
+            var items = await _unitOfWork.Items.GetAllAsync(c => c.IsArchived == isArchived);
+            var mappedItems = _mapper.Map<IEnumerable<ItemResponse>>(items);
+            var response = ApiResponse<ItemResponse>.GetListSuccess(ResponseMessage.Success,mappedItems);
+            return response;
+        }
+
+        public  Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync()
         {
             throw new NotImplementedException();
         }

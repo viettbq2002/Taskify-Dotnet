@@ -14,7 +14,5 @@ namespace Taskify.Application.Interfaces
         Task DeleteAsync(TKey key);
         Task<ApiResponse<IEnumerable<TResponseDto>>> GetListAsync();
 
-
-
     }
 }

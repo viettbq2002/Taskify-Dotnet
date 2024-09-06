@@ -14,7 +14,6 @@ namespace Taskify.Application.MappingProfile
     {
         public SubItemProfile()
         {
-            CreateMap<Item, ItemResponse>().ReverseMap();
             CreateMap<SubItem,SubItemResponse>().ReverseMap();
         }
     }

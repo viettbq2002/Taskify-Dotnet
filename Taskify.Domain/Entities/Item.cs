@@ -10,7 +10,7 @@ namespace Taskify.Domain.Entities
     public class Item : BaseEntity
     {
       
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public string Title { get; set; } = null!;
         public string? Note { get; set; }
         public bool IsTodayItem = false;

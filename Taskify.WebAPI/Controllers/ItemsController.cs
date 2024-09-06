@@ -17,9 +17,10 @@ namespace Taskify.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetItems(bool isArchived = false)
         {
-            return new string[] { "value1", "value2" };
+            var response = await _itemService.GetListAsync(isArchived);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -33,6 +34,7 @@ namespace Taskify.WebAPI.Controllers
         {
             var response = await _itemService.CreateAsync(request);
             return Created(String.Empty, request);
+
 
         }
 

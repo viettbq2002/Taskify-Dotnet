@@ -44,9 +44,14 @@ namespace Taskify.Persistence.Repositories
             return Task.CompletedTask;
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? predicate)
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            var query = _dbSet.AsNoTracking();
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+            return await query.ToListAsync();
         }
 
         public virtual async Task<T?> GetByIdAsync(int id)

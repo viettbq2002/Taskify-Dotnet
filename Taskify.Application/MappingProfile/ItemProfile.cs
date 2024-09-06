@@ -13,7 +13,7 @@ namespace Taskify.Application.MappingProfile
     {
         public ItemProfile() {
             CreateMap<CreateItem, Item>();
-            CreateMap<Item,ItemResponse>();
+            CreateMap<Item,ItemResponse>().ReverseMap();
             CreateMap<UpdateItem, Item>();
             
         }

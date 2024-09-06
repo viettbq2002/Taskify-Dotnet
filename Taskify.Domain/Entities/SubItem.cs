@@ -12,6 +12,6 @@ namespace Taskify.Domain.Entities
         public string Title { get; set; } = null!; 
         public bool IsCompleted { get; set; } = false;
         public int ItemId { get; set; }
-        public Item? Item { get; set; } 
+        public Item Item { get; set; } = null!; 
     }
 }
