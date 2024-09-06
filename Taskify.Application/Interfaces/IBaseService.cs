@@ -12,7 +12,7 @@ namespace Taskify.Application.Interfaces
         Task<ApiResponse<TResponseDto>> CreateAsync(TCreateDto request);
         Task<ApiResponse<TResponseDto>> UpdateAsync(TUpdateDto request);
         Task DeleteAsync(TKey key);
-        Task<ApiResponse<IEnumerable<TResponseDto>>> GetListAsync();
+        Task<ApiResponse<IEnumerable<TResponseDto>>> GetListAsync(bool isArchived);
 
     }
 }

@@ -24,9 +24,9 @@ namespace Taskify.WebAPI.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCategory()
+        public async Task<IActionResult> GetAllCategory(bool isArchived = false)
         {
-            var reponse = await _categoryService.GetListAsync();
+            var reponse = await _categoryService.GetListAsync(isArchived);
             return Ok(reponse);
         }
         [HttpGet("{categoryId:int}")]

@@ -58,11 +58,7 @@ namespace Taskify.Application.Services
             return response;
         }
 
-        public  Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public Task<ApiResponse<ItemResponse>> UpdateAsync(UpdateItem request)
         {
             throw new NotImplementedException();

@@ -54,9 +54,9 @@ namespace Taskify.Application.Services
             return response;
         }
 
-        public async Task<ApiResponse<IEnumerable<ItemCategoryResponse>>> GetListAsync()
+        public async Task<ApiResponse<IEnumerable<ItemCategoryResponse>>> GetListAsync(bool isArchived)
         {
-            var categories = await _unitOfWork.Categories.GetAllAsync();
+            var categories = await _unitOfWork.Categories.GetAllAsync(c => c.IsArchived == isArchived);
             var mappedCategories = _mapper.Map<IEnumerable<ItemCategoryResponse>>(categories);
             var response = ApiResponse<ItemCategoryResponse>.GetListSuccess(ResponseMessage.Success, mappedCategories);
             return response;

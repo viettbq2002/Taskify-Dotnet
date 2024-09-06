@@ -11,6 +11,5 @@ namespace Taskify.Application.Interfaces
 {
     public interface IItemService : IBaseService<Item,ItemResponse,CreateItem,UpdateItem,int>
     {
-        Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync(bool isArchived);
     }
 }
