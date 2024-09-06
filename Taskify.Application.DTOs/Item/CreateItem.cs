@@ -11,6 +11,7 @@ namespace Taskify.Application.DTOs.Item
     {
         [Required]
         public string Title { get; set; } = null!;
+        public int? CategoryId { get; set; }
 
     }
 }

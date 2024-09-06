@@ -8,6 +8,7 @@ namespace Taskify.Application.Constant
 {
     public class ResponseMessage
     {
+
         public const string Success = "Success";
         public const string Created = "Create success";
         public const string NotFound = "Not found";
