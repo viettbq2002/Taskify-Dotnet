@@ -12,3 +12,16 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  database:
+    environment: 
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=Admin@123
+        - MSSQL_PID=DEVELOPER
+        - MSSQL_TCP_PORT=1433
+    ports:
+        - "1455:1433"    
+    
+  
+
+    
+         
