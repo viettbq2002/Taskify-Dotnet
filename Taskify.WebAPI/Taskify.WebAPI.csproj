@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filter\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Taskify.Application\Taskify.Application.csproj" />
     <ProjectReference Include="..\Taskify.Persistence\Taskify.Persistence.csproj" />
   </ItemGroup>
