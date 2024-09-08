@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Taskify.Application.DTOs.Item;
+using Taskify.Application.DTOs.SubItem;
 using Taskify.Application.Interfaces;
 
 
@@ -10,10 +11,12 @@ namespace Taskify.WebAPI.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly IItemService _itemService;
+        private readonly ISubItemService _subItemService;
 
-        public ItemsController(IItemService itemService)
+        public ItemsController(IItemService itemService, ISubItemService subItemService)
         {
             _itemService = itemService;
+            _subItemService = subItemService;
         }
 
         [HttpGet]
@@ -22,7 +25,14 @@ namespace Taskify.WebAPI.Controllers
             var response = await _itemService.GetListAsync(isArchived);
             return Ok(response);
         }
+        [HttpPost("{itemId:int}/sub-items")]
+        public async Task<IActionResult> AddSubItem(int itemId, [FromBody] CreateSubItem request)
+        {
+            var response = await _subItemService.CreateAsync(request, itemId);
+            return Ok(response);
 
+        }
+      
         [HttpGet("{id}")]
         public string Get(int id)
         {

@@ -11,6 +11,8 @@ namespace Taskify.Domain.SeedWorks
     {
         ICategoryRepository Categories { get; }
         IItemRepository Items { get; }
+        public ISubItemRepository SubItems { get; }
+
         Task<int> SaveAsync(CancellationToken cancellationToken = default);
     }
 }

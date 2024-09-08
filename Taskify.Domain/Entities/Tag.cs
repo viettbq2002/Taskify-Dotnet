@@ -11,7 +11,7 @@ namespace Taskify.Domain.Entities
     {
         
         public string TagName { get; set; } = null!;
-        public bool IsArchived { get; set; } = false;
+        public string TagColor { get; set; } = "#FFFF00";
         public virtual ICollection<Item> Items { get; set; } = [];
     }
 }

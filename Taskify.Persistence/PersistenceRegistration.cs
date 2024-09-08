@@ -21,6 +21,7 @@ namespace Taskify.Persistence
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICategoryRepository, CategoryRepsitory>();
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<ISubItemRepository, SubItemRepository>();
             return services;
         }
     }

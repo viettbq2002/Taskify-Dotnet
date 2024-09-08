@@ -15,14 +15,16 @@ namespace Taskify.Persistence.Repositories
         private readonly TaskifyDbContext _context;
         public ICategoryRepository Categories  { get; }
         public IItemRepository Items { get; }
+        public ISubItemRepository SubItems { get; }
 
         #endregion
         #region Constructor
-        public UnitOfWork(TaskifyDbContext context, ICategoryRepository categoryRepository, IItemRepository items)
+        public UnitOfWork(TaskifyDbContext context, ICategoryRepository categoryRepository, IItemRepository items, ISubItemRepository subItems)
         {
             _context = context;
             Categories = categoryRepository;
             Items = items;
+            SubItems = subItems;
         }
         #endregion
         public void Dispose()

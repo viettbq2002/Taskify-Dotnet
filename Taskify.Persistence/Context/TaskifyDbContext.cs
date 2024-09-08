@@ -59,5 +59,12 @@ namespace Taskify.Persistence.Context
             }
             return await base.SaveChangesAsync(cancellationToken);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TaskifyDbContext).Assembly);    
+            base.OnModelCreating(modelBuilder);
+        }
     }
+
 }
