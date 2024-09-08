@@ -14,6 +14,7 @@ namespace Taskify.Domain.SeedWorks
         Task<T[]> AddRangeAsync(T[] entities);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task DeleteRangeAsync(List<T> entities);
         #endregion
         #region Query
         Task<T?> GetByIdAsync(int id);

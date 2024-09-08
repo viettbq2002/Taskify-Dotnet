@@ -108,5 +108,11 @@ namespace Taskify.Persistence.Repositories
         {
             return await _dbSet.AnyAsync(predicate);
         }
+
+        public virtual Task DeleteRangeAsync(List<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+            return Task.CompletedTask;
+        }
     }
 }
