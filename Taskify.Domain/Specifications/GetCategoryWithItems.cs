@@ -12,8 +12,6 @@ namespace Taskify.Domain.Specifications
     {
         public GetCategoryWithItems(int categoryId) : base(c => c.Id == categoryId)
         {
-            AddInclude(c => c.Items);
-            AddNestedInclude("Items.SubItems");
             
         }
     }

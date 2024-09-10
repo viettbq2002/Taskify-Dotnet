@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +40,7 @@ namespace Taskify.Application.Services
 
 
         }
-        
+
 
         public Task DeleteAsync(int key)
         {
@@ -48,18 +50,19 @@ namespace Taskify.Application.Services
         public async Task<ApiResponse<ItemCategoryDetail>> GetAsync(int id)
         {
             var specification = new GetCategoryWithItems(id);
-            var category = await _unitOfWork.Categories.SelectOneAsync(specification) ?? throw new NotFoundException($"Category {ResponseMessage.NotFound}");
-            var mappedResponse = _mapper.Map<ItemCategoryDetail>(category);
+            var category = _unitOfWork.Categories.SelectOne(specification).ProjectTo<ItemCategoryDetail>(_mapper.ConfigurationProvider);
+            var mappedResponse = await category.FirstOrDefaultAsync() ?? throw new NotFoundException(ResponseMessage.NotFound); 
             var response = ApiResponse<ItemCategoryDetail>.Success(ResponseMessage.Success, mappedResponse);
             return response;
         }
 
         public async Task<ApiResponse<IEnumerable<ItemCategoryResponse>>> GetListAsync(bool isArchived)
         {
-            var categories = await _unitOfWork.Categories.GetAllAsync(c => c.IsArchived == isArchived);
-            var mappedCategories = _mapper.Map<IEnumerable<ItemCategoryResponse>>(categories);
-            var response = ApiResponse<ItemCategoryResponse>.GetListSuccess(ResponseMessage.Success, mappedCategories);
+            var categories = _unitOfWork.Categories.GetAll(x => x.IsArchived == isArchived);
+            var mappedCateogries = await categories.ProjectTo<ItemCategoryResponse>(_mapper.ConfigurationProvider).ToListAsync();
+            var response = ApiResponse<ItemCategoryResponse>.GetListSuccess(ResponseMessage.Success, mappedCateogries);
             return response;
+
         }
 
         public Task<ApiResponse<ItemCategoryResponse>> UpdateAsync(UpdateItemCategory request)

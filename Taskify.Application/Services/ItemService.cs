@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +54,8 @@ namespace Taskify.Application.Services
 
         public async Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync(bool isArchived)
         {
-            var items = await _unitOfWork.Items.GetAllAsync(c => c.IsArchived == isArchived);
-            var mappedItems = _mapper.Map<IEnumerable<ItemResponse>>(items);
+            var items =_unitOfWork.Items.GetAll(x => x.IsArchived == isArchived).ProjectTo<ItemResponse>(_mapper.ConfigurationProvider);
+            var mappedItems = await items.ToListAsync();
             var response = ApiResponse<ItemResponse>.GetListSuccess(ResponseMessage.Success,mappedItems);
             return response;
         }
