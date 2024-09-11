@@ -96,7 +96,7 @@ namespace Taskify.Persistence.Repositories
         {
             var query = _context.Set<T>().AsQueryable();
             var includes = ApplyIncludes(query, specification);
-            return includes;
+            return includes.Where(specification.Predicate);
         }
 
         public virtual Task<T> UpdateAsync(T entity)

@@ -3,12 +3,19 @@ version: '3.4'
 services:
   taskify.webapi:
     image: ${DOCKER_REGISTRY-}taskifywebapi
+    networks:
+        - taskify-network
     build:
       context: .
       dockerfile: Taskify.WebAPI/Dockerfile
-  database:
+  taskify.database:
+    container_name: taskify.database
+    networks: 
+        - taskify-network
     image: mcr.microsoft.com/mssql/server:2022-latest
-
+networks:
+  taskify-network:
+    driver: bridge
     
   
 
