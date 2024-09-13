@@ -32,9 +32,9 @@ namespace Taskify.WebAPI.Controllers
             return Ok(response);
 
         }
-      
-        [HttpGet("{id}")]
-        public string Get(int id)
+
+        [HttpGet("{itemId:int}")]
+        public string Get(int itemId)
         {
             return "value";
         }
@@ -48,14 +48,24 @@ namespace Taskify.WebAPI.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{itemId:int}")]
+        public async Task<IActionResult> UpdateItem(int itemId, [FromBody] UpdateItem request)
         {
+            var response = await _itemService.UpdateAsync(itemId, request);
+            return Ok(response);
+
+        }
+        [HttpPut("complete-all")]
+        public async Task<IActionResult> ClearCompletedTask()
+        {
+            await _itemService.ClearCompletedItemsAsync();
+            return NoContent();
+
         }
 
         // DELETE api/<ItemController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{itemId:int}")]
+        public void Delete(int itemId)
         {
         }
     }

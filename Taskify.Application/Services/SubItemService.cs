@@ -60,7 +60,7 @@ namespace Taskify.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<SubItemResponse>> UpdateAsync(UpdateSubItem request)
+        public Task<ApiResponse<SubItemResponse>> UpdateAsync(int key, UpdateSubItem request)
         {
             throw new NotImplementedException();
         }

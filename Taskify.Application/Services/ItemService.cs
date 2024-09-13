@@ -30,6 +30,12 @@ namespace Taskify.Application.Services
             _createItemValidator = createItemValidator;
         }
 
+        public async Task ClearCompletedItemsAsync()
+        {
+            await _unitOfWork.Items.ExecuteRawSQLAsync($"UPDATE [Items] SET [IsArchived ] = 1 WHERE [IsCompleted] = 1");
+          
+        }
+
         public async Task<ApiResponse<ItemResponse>> CreateAsync(CreateItem request)
         {
             if(request.CategoryId != null)
@@ -48,7 +54,7 @@ namespace Taskify.Application.Services
             return response;
         }
 
-        public async Task DeleteArchivedTaskAsync()
+        public async Task DeleteArchiveItemsAsync()
         {
             var query = new ArchivedTask(true);
             await _unitOfWork.Items.DeleteManyAsync(query);
@@ -59,24 +65,25 @@ namespace Taskify.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task DeleteCompletedTaskAsync()
-        {
-            var query = new CompletedTask(true);
-            await _unitOfWork.Items.DeleteManyAsync(query);
-        }
-
         public async Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync(bool isArchived)
         {
             var items =_unitOfWork.Items.GetAll(x => x.IsArchived == isArchived).ProjectTo<ItemResponse>(_mapper.ConfigurationProvider);
-            var mappedItems = await items.ToListAsync();
+            var mappedItems = await items.OrderByDescending(e => e.CreatedAt).ToListAsync();
             var response = ApiResponse<ItemResponse>.GetListSuccess(ResponseMessage.Success,mappedItems);
             return response;
         }
 
-       
-        public Task<ApiResponse<ItemResponse>> UpdateAsync(UpdateItem request)
+        public async Task<ApiResponse<ItemResponse>> UpdateAsync(int key, UpdateItem request)
         {
-            throw new NotImplementedException();
+            var item = await _unitOfWork.Items.GetByIdAsync(key) ?? throw new NotFoundException(ResponseMessage.NotFound);
+            var updatedItem =  _mapper.Map(request, item);
+            await _unitOfWork.Items.UpdateAsync(item);
+            await _unitOfWork.SaveAsync();
+            var mappedResponse = _mapper.Map<ItemResponse>(updatedItem);
+            var response = ApiResponse<ItemResponse>.Success(ResponseMessage.Success, mappedResponse);
+            return response;
+            
+
         }
     }
 }

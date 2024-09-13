@@ -9,5 +9,8 @@ namespace Taskify.Application.DTOs.Item
     public class UpdateItem: CreateItem
     {
         public string? Note {  get; set; }
+        public bool? IsCompleted { get; set; }
+        public DateTime? DueDate { get; set; }
+        public bool? IsArchived { get; set; }
     }
 }

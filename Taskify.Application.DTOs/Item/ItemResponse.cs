@@ -11,6 +11,7 @@ namespace Taskify.Application.DTOs.Item
     public class ItemResponse : BaseResponseDto
     {
         public string Title { get; set; } = null!;
+        public string? CategoryName { get; set; } 
         public string? Note { get; set; }
         public bool IsTodayItem = false;
         public bool IsCompleted { get; set; } = false;

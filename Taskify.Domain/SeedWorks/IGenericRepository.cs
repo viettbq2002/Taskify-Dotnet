@@ -19,12 +19,13 @@ namespace Taskify.Domain.SeedWorks
         #region Query
         Task<T?> GetByIdAsync(int id);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
-        IQueryable<T> GetAll(Expression<Func<T,bool>>? predicate = null);
+        IQueryable<T> GetAll(Expression<Func<T, bool>>? predicate = null);
         IQueryable<T?> SelectOne(ISpecification<T> specification);
         Task<IEnumerable<T>> SelectManyAsync(ISpecification<T> specification);
         Task<IEnumerable<T>> SelectManyPaginatedAsync(ISpecification<T> specification, int pageSize = 10, int pageIndex = 0);
         Task<IEnumerable<T>> Count(ISpecification<T> specification);
         #endregion
+        Task ExecuteRawSQLAsync(FormattableString sql);
 
     }
 }

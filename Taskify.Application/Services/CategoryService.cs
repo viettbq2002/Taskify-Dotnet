@@ -65,7 +65,7 @@ namespace Taskify.Application.Services
 
         }
 
-        public Task<ApiResponse<ItemCategoryResponse>> UpdateAsync(UpdateItemCategory request)
+        public Task<ApiResponse<ItemCategoryResponse>> UpdateAsync(int key, UpdateItemCategory request)
         {
             throw new NotImplementedException();
         }

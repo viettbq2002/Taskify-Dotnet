@@ -11,11 +11,14 @@ namespace Taskify.Application.MappingProfile
 {
     public class ItemProfile : Profile
     {
-        public ItemProfile() {
+        public ItemProfile()
+        {
             CreateMap<CreateItem, Item>();
-            CreateMap<Item,ItemResponse>().ReverseMap();
+            CreateMap<Item, ItemResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category != null ? src.Category.CategoryName : null))
+                .ReverseMap();
             CreateMap<UpdateItem, Item>();
-            
+
         }
     }
 }

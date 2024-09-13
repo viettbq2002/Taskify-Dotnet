@@ -40,7 +40,7 @@ namespace Taskify.Persistence.Repositories
 
         public virtual Task DeleteAsync(T entity)
         {
-             _dbSet.Remove(entity);
+            _dbSet.Remove(entity);
             return Task.CompletedTask;
         }
 
@@ -51,8 +51,8 @@ namespace Taskify.Persistence.Repositories
             {
                 query = query.Where(predicate);
             }
-            return query.AsQueryable();
-            
+            return query;
+
         }
 
         public virtual async Task<T?> GetByIdAsync(int id)
@@ -77,12 +77,12 @@ namespace Taskify.Persistence.Repositories
             return await includes
                         .Where(specification.Predicate)
                         .AsNoTracking()
-                        .ToListAsync(); 
+                        .ToListAsync();
         }
 
-        public virtual async Task<IEnumerable<T>> SelectManyPaginatedAsync(ISpecification<T> specification, int pageSize = 10, int currentPage=1)
+        public virtual async Task<IEnumerable<T>> SelectManyPaginatedAsync(ISpecification<T> specification, int pageSize = 10, int currentPage = 1)
         {
-            int skip = (currentPage -1) * pageSize;
+            int skip = (currentPage - 1) * pageSize;
             var query = _context.Set<T>().AsQueryable();
             var includes = ApplyIncludes(query, specification);
             return await includes
@@ -116,9 +116,9 @@ namespace Taskify.Persistence.Repositories
             return Task.CompletedTask;
         }
 
-        public Task DeleteManyAsync(ISpecification<T> specification)
+        public async Task ExecuteRawSQLAsync(FormattableString sql)
         {
-            throw new NotImplementedException();
+            await _context.Database.ExecuteSqlAsync(sql);
         }
     }
 }
