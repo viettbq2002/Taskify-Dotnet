@@ -10,6 +10,7 @@ namespace Taskify.Domain.Interfaces
 {
     public interface IItemRepository : IGenericRepository<Item>
     {
+        Task DeleteManyAsync(ISpecification<Item> specification);
 
     }
 }

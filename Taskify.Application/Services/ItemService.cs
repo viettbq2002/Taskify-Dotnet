@@ -14,6 +14,7 @@ using Taskify.Application.Exceptions;
 using Taskify.Application.Interfaces;
 using Taskify.Domain.Entities;
 using Taskify.Domain.SeedWorks;
+using Taskify.Domain.Specifications.Item;
 namespace Taskify.Application.Services
 {
     public sealed class ItemService : IItemService
@@ -47,9 +48,21 @@ namespace Taskify.Application.Services
             return response;
         }
 
+        public async Task DeleteArchivedTaskAsync()
+        {
+            var query = new ArchivedTask(true);
+            await _unitOfWork.Items.DeleteManyAsync(query);
+        }
+
         public Task DeleteAsync(int key)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task DeleteCompletedTaskAsync()
+        {
+            var query = new CompletedTask(true);
+            await _unitOfWork.Items.DeleteManyAsync(query);
         }
 
         public async Task<ApiResponse<IEnumerable<ItemResponse>>> GetListAsync(bool isArchived)

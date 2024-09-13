@@ -10,7 +10,7 @@ using Taskify.Persistence.Context;
 
 namespace Taskify.Persistence.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly TaskifyDbContext _context;
         private readonly DbSet<T> _dbSet;
@@ -114,6 +114,11 @@ namespace Taskify.Persistence.Repositories
         {
             _dbSet.RemoveRange(entities);
             return Task.CompletedTask;
+        }
+
+        public Task DeleteManyAsync(ISpecification<T> specification)
+        {
+            throw new NotImplementedException();
         }
     }
 }

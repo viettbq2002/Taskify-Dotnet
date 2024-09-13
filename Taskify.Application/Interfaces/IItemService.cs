@@ -11,5 +11,7 @@ namespace Taskify.Application.Interfaces
 {
     public interface IItemService : IBaseService<Item,ItemResponse,CreateItem,UpdateItem,int>
     {
+        Task DeleteCompletedTaskAsync();
+        Task DeleteArchivedTaskAsync();
     }
 }

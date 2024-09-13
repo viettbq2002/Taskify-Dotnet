@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,11 @@ namespace Taskify.Persistence.Repositories
     {
         public ItemRepository(TaskifyDbContext context) : base(context)
         {
+        }
+
+        public async Task DeleteManyAsync(ISpecification<Item> specification)
+        {
+            await _context.Items.Where(specification.Predicate).ExecuteDeleteAsync();
         }
     }
 }
