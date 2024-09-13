@@ -64,9 +64,11 @@ namespace Taskify.WebAPI.Controllers
         }
 
         // DELETE api/<ItemController>/5
-        [HttpDelete("{itemId:int}")]
-        public void Delete(int itemId)
+        [HttpDelete("clear-archived")]
+        public async Task<IActionResult> Delete()
         {
+            await _itemService.DeleteArchiveItemsAsync();
+            return NoContent();
         }
     }
 }
